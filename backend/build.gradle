@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:1.0.2'
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.3'
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    implementation project(":joker")
+
+    implementation 'com.google.endpoints:endpoints-framework:2.0.9'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
+
+    implementation 'javax.inject:javax.inject:1'
+    implementation 'javax.servlet:servlet-api:2.5'
+}
+
+appengine {
+    run {
+        host = "0.0.0.0"
+        port = 8080
+    }
+}
